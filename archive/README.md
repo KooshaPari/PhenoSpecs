@@ -10,11 +10,11 @@ Documentation from `KooshaPari/agent-wave` - an AI-powered agentic workflow syst
 - **Content**: AGENTS.md (110KB), SPEC.md, ADR.md, CLAUDE.md, docs/
 - **Preserved**: 2026-04-05
 
-### Flowra/
+### Flowra
 Documentation from `KooshaPari/Flowra` - a workflow automation platform concept.
-- **Status**: Archived on GitHub (content moved to HexaKit)
+- **Status**: ✅ **MOVED** to [HexaKit/Flowra/](https://github.com/KooshaPari/HexaKit/tree/main/Flowra)
 - **Content**: SPEC.md (96KB), PLAN.md (45KB), CHARTER.md, ADR.md, PRD.md
-- **Preserved**: 2026-04-05
+- **Integrated**: 2026-04-05 (removed from archive, now in HexaKit proper)
 
 ## Notes
 
