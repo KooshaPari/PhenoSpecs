@@ -1,90 +1,25 @@
 # AGENTS.md — PhenoSpecs
 
-## Project Overview
+- **Location:** /Users/kooshapari/CodePr
 
-- **Name**: PhenoSpecs (Specifications & Standards)
-- **Description**: Technical specifications, standards, and API definitions for Phenotype ecosystem
-- **Location**: `/Users/kooshapari/CodeProjects/Phenotype/repos/PhenoSpecs`
-- **Language Stack**: OpenAPI, AsyncAPI, Markdown
-- **Published**: Private (Phenotype org)
+## Quick Links
 
-## Quick Start
+- **Local CLAUDE.md:** See `CLAUDE.md` in this repository for project-specific guidance
+- **Phenotype org governance:** `/Users/kooshapari/CodeProjects/Phenotype/repos/CLAUDE.md`
+- **Global agent guidance:** `~/.claude/AGENTS.md`
+- **AgilePlus work tracking:** `cd /repos/AgilePlus && agileplus <command>`
 
-```bash
-# Navigate to project
-cd /Users/kooshapari/CodeProjects/Phenotype/repos/PhenoSpecs
+## Key Workflows
 
-# Validate specs
-make validate
+1. **Before implementing:** Check AgilePlus for existing specs
+2. **Quality gates:** Run linters, tests, and docs validation (see CLAUDE.md)
+3. **Worktrees:** Use `repos/PhenoSpecs-wtrees/<topic>/` for feature work
+4. **Integration:** Commit to canonical repo (`main`) after quality gates pass
 
-# Generate docs
-make docs
-```
+## Project-Specific Gotchas
 
-## Architecture
+See CLAUDE.md for language stack, build commands, and testing requirements.
 
-### Specifications Repository
+---
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     Specification Types                            │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐   │
-│  │   OpenAPI         │  │   AsyncAPI      │  │   JSON Schema   │   │
-│  │   (REST APIs)     │  │   (Events)      │  │   (Validation)  │   │
-│  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘   │
-└───────────┼───────────────────┼───────────────────┼──────────────┘
-            │                   │                   │
-            └───────────────────┼───────────────────┘
-                                │
-┌───────────────────────────────▼───────────────────────────────┐
-│                     Registry & Discovery                           │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │                    registry.yaml                              │ │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │ │
-│  │  │ Services │  │ Versions │  │ Owners   │  │ Status   │  │ │
-│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │ │
-│  └──────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## Quality Standards
-
-### Spec Quality
-
-- **Validation**: Spectral
-- **Linting**: openapi-lint
-- **Breaking**: oasdiff
-- **Documentation**: Redoc
-
-## Git Workflow
-
-### Branch Naming
-
-Format: `<type>/<spec>/<description>`
-
-Examples:
-- `spec/api/add-authentication`
-- `breaking/v2/remove-deprecated`
-- `docs/readme/update-links`
-
-## CLI Commands
-
-```bash
-make validate
-make docs
-make breaking
-```
-
-## Resources
-
-- [OpenAPI](https://spec.openapis.org/)
-- [AsyncAPI](https://www.asyncapi.com/)
-- [Phenotype Registry](https://github.com/KooshaPari/phenotype-registry)
-
-## Agent Notes
-
-**Critical Details:**
-- Version all specs
-- Breaking changes documented
-- Registry kept updated
-- Validate in CI
+**Parent contract:** Extends Phenotype-org governance. See `CLAUDE.md` and parent `AGENTS.md` for complete operating procedures.
