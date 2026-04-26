@@ -92,3 +92,7 @@ See [registry.yaml](./registry.yaml) for complete index with:
 - [AgilePlus CLI](https://github.com/KooshaPari/AgilePlus) - Spec-driven development
 - [HexaKit](https://github.com/KooshaPari/HexaKit) - Templates
 - [PhenoHandbook](https://github.com/KooshaPari/PhenoHandbook) - Patterns & guidelines
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
