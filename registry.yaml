@@ -5,26 +5,119 @@
 registry_version: "1.0.0"
 last_updated: "2026-04-04"
 
+# PhenoSpecs System Entry
+system:
+  id: phenospecs-001
+  title: "PhenoSpecs — Unified Specification Registry"
+  spec: "SPEC.md"
+  research: "RESEARCH.md"
+  status: specified
+
 # --- DOMAIN CLASSIFICATIONS ---
 domains:
-  auth:
-    name: "Authentication & Authorization"
+  phenokit:
+    name: "Core Infrastructure & Foundation"
+    owner: "team-platform"
+    workspaces: ["PhenoKit"]
+    repos: 
+      - "PhenoKit/rust/PhenotypeCore"
+      - "PhenoKit/rust/PhenotypeValidation"
+      - "PhenoKit/python/pheno-core"
+      - "PhenoKit/python/pheno-validation"
+      - "PhenoKit/go/phenotype-go-kit"
+    specs: [SPEC-CORE-001, SPEC-VALIDATION-001]
+  
+  authkit:
+    name: "Authentication & Security"
     owner: "team-security"
+    workspaces: ["AuthKit"]
+    repos:
+      - "AuthKit/rust/PhenotypeCipher"
+      - "AuthKit/rust/PhenotypePolicyEngine"
+      - "AuthKit/python/pheno-credentials"
+      - "AuthKit/python/pheno-auth"
+      - "AuthKit/go/phenotype-oauth2"
+    specs: [SPEC-AUTH-001, SPEC-AUTH-002, SPEC-CRYPTO-001, SPEC-CRYPTO-002]
+  
+  datakit:
+    name: "Data Storage & Event Sourcing"
+    owner: "team-platform"
+    workspaces: ["DataKit"]
+    repos:
+      - "DataKit/rust/PhenotypeEventSourcing"
+      - "DataKit/rust/PhenotypeInMemoryStore"
+      - "DataKit/python/pheno-events"
+      - "DataKit/python/pheno-storage"
+    specs: [SPEC-DATA-001, SPEC-CACHE-001]
+  
+  observabilitykit:
+    name: "Observability & Monitoring"
+    owner: "team-platform"
+    workspaces: ["ObservabilityKit"]
+    repos:
+      - "ObservabilityKit/rust/PhenotypeLogging"
+      - "ObservabilityKit/rust/PhenotypeTelemetry"
+      - "ObservabilityKit/rust/PhenotypeMetrics"
+      - "ObservabilityKit/python/pheno-observability"
+    specs: [SPEC-OBS-001]
+  
+  resiliencekit:
+    name: "Resilience & Reliability"
+    owner: "team-platform"
+    workspaces: ["ResilienceKit"]
+    repos:
+      - "ResilienceKit/rust/PhenotypeRetry"
+      - "ResilienceKit/rust/PhenotypeStateMachine"
+      - "ResilienceKit/python/pheno-resilience"
+    specs: [SPEC-RESILIENCE-001]
+  
+  testingkit:
+    name: "Testing & Quality Assurance"
+    owner: "team-quality"
+    workspaces: ["TestingKit"]
+    repos:
+      - "TestingKit/rust/PhenotypeTesting"
+      - "TestingKit/rust/PhenotypeBdd"
+      - "TestingKit/python/pheno-testing"
+    specs: [SPEC-TEST-001]
+  
+  mcpkit:
+    name: "Model Context Protocol"
+    owner: "team-agents"
+    workspaces: ["McpKit"]
+    repos:
+      - "McpKit/rust/PhenotypeMcpFramework"
+      - "McpKit/python/pheno-mcp"
+    specs: [SPEC-MCP-001]
+  
+  # Legacy domains (being migrated to kit structure)
+  auth:
+    name: "Authentication & Authorization (Legacy)"
+    owner: "team-security"
+    status: deprecated
+    migrated_to: authkit
     repos: ["phenotype-auth-ts", "phenotype-cipher", "Authvault"]
+    migration_status: "In progress - see PHENOSDK_DECOMPOSITION_PLAN.md"
   
   crypto:
-    name: "Cryptography"
+    name: "Cryptography (Legacy)"
     owner: "team-security"
+    status: deprecated
+    migrated_to: authkit
     repos: ["phenotype-cipher", "phenoSDK"]
   
   caching:
-    name: "Caching & Storage"
+    name: "Caching & Storage (Legacy)"
     owner: "team-platform"
+    status: deprecated
+    migrated_to: datakit
     repos: ["Stashly", "phenotype-cache-adapter"]
   
   observability:
-    name: "Observability"
+    name: "Observability (Legacy)"
     owner: "team-platform"
+    status: deprecated
+    migrated_to: observabilitykit
     repos: ["Tracely", "tracely-sentinel"]
   
   cli:
@@ -38,13 +131,17 @@ domains:
     repos: ["thegent", "AgentMCP", "heliosApp"]
   
   storage:
-    name: "Data Storage"
+    name: "Data Storage (Legacy)"
     owner: "team-platform"
+    status: deprecated
+    migrated_to: datakit
     repos: ["PhenoVCS", "Stashly"]
   
   testing:
-    name: "Testing & Quality"
+    name: "Testing & Quality (Legacy)"
     owner: "team-quality"
+    status: deprecated
+    migrated_to: testingkit
     repos: ["phenotype-bdd", "phenotype-test-infra"]
 
 # --- SPECIFICATIONS INDEX ---
@@ -143,6 +240,30 @@ adrs:
     status: accepted
     date: "2024-03-01"
     tags: [process, agileplus]
+  
+  ADR-004:
+    title: "Unified Specification Registry"
+    path: "adrs/004-unified-specification-registry.md"
+    status: accepted
+    date: "2026-04-04"
+    tags: [architecture, registry, phenospecs]
+    affected_specs: [phenospecs-001]
+  
+  ADR-005:
+    title: "Multi-Format Documentation Strategy"
+    path: "adrs/005-multi-format-documentation.md"
+    status: accepted
+    date: "2026-04-04"
+    tags: [documentation, process]
+    relates_to: [ADR-004]
+  
+  ADR-006:
+    title: "Traceability-First Development"
+    path: "adrs/006-traceability-first-development.md"
+    status: accepted
+    date: "2026-04-04"
+    tags: [process, traceability, quality]
+    relates_to: [ADR-004, ADR-005]
 
 # --- OPENAPI SPECS INDEX ---
 openapi:
