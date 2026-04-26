@@ -1,5 +1,9 @@
 # PhenoSpecs - Specification Registry
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Legacy Tooling Gate](https://github.com/KooshaPari/PhenoSpecs/actions/workflows/legacy-tooling-gate.yml/badge.svg)](https://github.com/KooshaPari/PhenoSpecs/actions/workflows/legacy-tooling-gate.yml)
+[![Specs](https://img.shields.io/badge/spec-markdown-blue.svg)](https://commonmark.org)
+
 **Unified specification registry for the Phenotype ecosystem.**
 
 This repository serves as the **central source of truth** for design specifications, requirements documents, ADRs, and API contracts across all Phenotype projects.
