@@ -69,12 +69,19 @@ tasks:
             docs)
               python3 -c 'import textwrap; exec(textwrap.dedent("""
               from pathlib import Path
-              import yaml
+              import re
 
               root = Path.cwd()
-              registry = yaml.safe_load((root / "registry.yaml").read_text())
+              registry = (root / "registry.yaml").read_text()
               required = ["registry_version", "system", "domains", "specs"]
-              missing = [key for key in required if key not in registry]
+              missing = [
+                  key for key in required
+                  if not re.search(
+                      "^" + re.escape(key) + ":",
+                      registry,
+                      re.MULTILINE,
+                  )
+              ]
               if missing:
                   raise SystemExit(f"registry.yaml missing keys: {missing}")
 
