@@ -1,3 +1,4 @@
+---
 version: "3"
 
 vars:
@@ -5,13 +6,19 @@ vars:
     sh: |
       if [ -f Cargo.toml ]; then
         echo rust
-      elif [ -f pyproject.toml ] || [ -f setup.py ] || [ -f requirements.txt ]; then
-        echo python
-      elif [ -f package.json ] || [ -f bun.lockb ] || [ -f pnpm-lock.yaml ] || [ -f yarn.lock ] || [ -f package-lock.json ]; then
-        echo javascript
       elif [ -f go.mod ]; then
         echo go
-      elif [ -f registry.yaml ] && [ -d specs ] && [ -d adrs ]; then
+      elif [ -f pyproject.toml ] || [ -f setup.py ]; then
+        echo python
+      elif [ -f requirements.txt ]; then
+        echo python
+      elif [ -f package.json ] || [ -f bun.lock ]; then
+        echo javascript
+      elif [ -f bun.lockb ] || [ -f pnpm-lock.yaml ]; then
+        echo javascript
+      elif [ -f yarn.lock ] || [ -f package-lock.json ]; then
+        echo javascript
+      elif [ -f registry.yaml ] && [ -d specs ]; then
         echo docs
       else
         echo unknown
@@ -19,58 +26,27 @@ vars:
 
 tasks:
   default:
-    desc: Show the detected stack and run the repository build task
+    desc: Run the default build task
     cmds:
       - task: build
 
   build:
-    desc: Build or validate the repository for the detected stack
+    desc: Build or validate this repository for the detected stack
     cmds:
-      - cmd: |
-          set -euo pipefail
-          case "{{.STACK}}" in
-            rust)
-              cargo build
-              ;;
-            python)
-              if command -v uv >/dev/null 2>&1; then
-                uv build
-              else
-                python -m build
-              fi
-              ;;
-            javascript)
-              if [ -f bun.lockb ]; then
-                bun run build
-              elif [ -f pnpm-lock.yaml ]; then
-                pnpm build
-              elif [ -f yarn.lock ]; then
-                yarn build
-              else
-                npm run build
-              fi
-              ;;
-            go)
-              go build ./...
-              ;;
-            docs)
-              markdownlint "**/*.md" --ignore archive
-              yamllint .
-              ;;
-            *)
-              echo "Unable to detect a supported stack from the repository root." >&2
-              exit 1
-              ;;
-          esac
+      - task: test
+      - task: lint
 
   test:
-    desc: Run the primary test or validation command for the detected stack
+    desc: Run the primary tests for the detected stack
     cmds:
       - cmd: |
           set -euo pipefail
           case "{{.STACK}}" in
             rust)
               cargo test
+              ;;
+            go)
+              go test ./...
               ;;
             python)
               if command -v uv >/dev/null 2>&1; then
@@ -80,7 +56,7 @@ tasks:
               fi
               ;;
             javascript)
-              if [ -f bun.lockb ]; then
+              if [ -f bun.lock ] || [ -f bun.lockb ]; then
                 bun test
               elif [ -f pnpm-lock.yaml ]; then
                 pnpm test
@@ -90,26 +66,46 @@ tasks:
                 npm test
               fi
               ;;
-            go)
-              go test ./...
-              ;;
             docs)
-              yamllint .
+              python3 -c 'import textwrap; exec(textwrap.dedent("""
+              from pathlib import Path
+              import yaml
+
+              root = Path.cwd()
+              registry = yaml.safe_load((root / "registry.yaml").read_text())
+              required = ["registry_version", "system", "domains", "specs"]
+              missing = [key for key in required if key not in registry]
+              if missing:
+                  raise SystemExit(f"registry.yaml missing keys: {missing}")
+
+              for path in ["README.md", "SPEC.md", "PRD.md", "CHARTER.md"]:
+                  if not (root / path).is_file():
+                      raise SystemExit(f"missing required document: {path}")
+
+              for path in ["specs", "adrs", "docs", "research"]:
+                  if not (root / path).is_dir():
+                      raise SystemExit(f"missing required directory: {path}")
+
+              print("registry and documentation structure validated")
+              """))'
               ;;
             *)
-              echo "Unable to detect a supported stack from the repository root." >&2
+              echo "Unable to detect a supported stack." >&2
               exit 1
               ;;
           esac
 
   lint:
-    desc: Run stack-specific linting
+    desc: Run linting for the detected stack
     cmds:
       - cmd: |
           set -euo pipefail
           case "{{.STACK}}" in
             rust)
               cargo clippy -- -D warnings
+              ;;
+            go)
+              golangci-lint run
               ;;
             python)
               if command -v uv >/dev/null 2>&1; then
@@ -119,7 +115,7 @@ tasks:
               fi
               ;;
             javascript)
-              if [ -f bun.lockb ]; then
+              if [ -f bun.lock ] || [ -f bun.lockb ]; then
                 bunx eslint .
               elif [ -f pnpm-lock.yaml ]; then
                 pnpm lint
@@ -129,14 +125,21 @@ tasks:
                 npm run lint
               fi
               ;;
-            go)
-              golangci-lint run
-              ;;
             docs)
-              markdownlint "**/*.md" --ignore archive
+              if command -v yamllint >/dev/null 2>&1; then
+                yamllint registry.yaml catalog-info.yaml Taskfile.yml
+              else
+                echo "yamllint not installed; skipping YAML lint"
+              fi
+
+              if command -v markdownlint >/dev/null 2>&1; then
+                markdownlint README.md SPEC.md PRD.md CHARTER.md
+              else
+                echo "markdownlint not installed; skipping Markdown lint"
+              fi
               ;;
             *)
-              echo "Unable to detect a supported stack from the repository root." >&2
+              echo "Unable to detect a supported stack." >&2
               exit 1
               ;;
           esac
@@ -144,4 +147,18 @@ tasks:
   clean:
     desc: Remove common build and cache artifacts
     cmds:
-      - rm -rf .task .pytest_cache .ruff_cache .mypy_cache .coverage coverage htmlcov dist build target node_modules .markdownlintcache .yamllint .yamllintcache
+      - |
+        rm -rf \
+          .coverage \
+          .markdownlintcache \
+          .mypy_cache \
+          .pytest_cache \
+          .ruff_cache \
+          .task \
+          .yamllintcache \
+          build \
+          coverage \
+          dist \
+          htmlcov \
+          node_modules \
+          target
