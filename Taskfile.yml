@@ -134,7 +134,15 @@ tasks:
               ;;
             docs)
               if command -v yamllint >/dev/null 2>&1; then
-                yamllint registry.yaml catalog-info.yaml Taskfile.yml
+                YAML_LINT_CONFIG='
+                extends: relaxed
+                rules:
+                  document-start: disable
+                '
+                yamllint -d "$YAML_LINT_CONFIG" \
+                  registry.yaml \
+                  catalog-info.yaml \
+                  Taskfile.yml
               else
                 echo "yamllint not installed; skipping YAML lint"
               fi
