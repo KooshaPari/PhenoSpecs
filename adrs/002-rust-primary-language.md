@@ -52,7 +52,3 @@ We will use **Rust** as the primary systems programming language for the Phenoty
 
 - Related: ADR-001 (Hexagonal Architecture - Rust traits enable this pattern)
 - Affected specs: All systems-level specifications
-
----
-
-*This is a placeholder ADR created during PhenoSpecs documentation expansion. Full rationale to be documented.*
