@@ -1090,9 +1090,9 @@ kind: Component
 metadata:
   name: phenospecs
   annotations:
-    phenotype.dev/specs: "specs/"
-    phenotype.dev/registry: "registry.yaml"
-    phenotype.dev/coverage: "85%"
+    kooshapari.com/specs: "specs/"
+    kooshapari.com/registry: "registry.yaml"
+    kooshapari.com/coverage: "85%"
 spec:
   type: documentation
   owner: team-platform
@@ -2206,9 +2206,9 @@ info:
   x-phenotype-status: stable
 
 servers:
-  - url: https://api.phenotype.dev/v2
+  - url: https://api.kooshapari.com/v2
     description: Production
-  - url: https://api.staging.phenotype.dev/v2
+  - url: https://api.staging.kooshapari.com/v2
     description: Staging
 
 security:

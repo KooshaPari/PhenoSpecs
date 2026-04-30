@@ -7,8 +7,8 @@ metadata:
   annotations:
     github.com/project-slug: KooshaPari/PhenoSpecs
     backstage.io/techdocs-ref: dir:./
-    phenotype.dev/registry-type: spec
-    phenotype.dev/language: markdown
+    kooshapari.com/registry-type: spec
+    kooshapari.com/language: markdown
   tags:
     - specs
     - requirements

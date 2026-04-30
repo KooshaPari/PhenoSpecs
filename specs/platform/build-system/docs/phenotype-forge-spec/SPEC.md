@@ -1917,7 +1917,7 @@ package_manager = "pnpm"
 
 [cache]
 local = { max_size = "10GB" }
-remote = { url = "https://cache.phenotype.dev", ttl = "30d" }
+remote = { url = "https://cache.kooshapari.com", ttl = "30d" }
 
 [tasks]
 [tasks.build]
@@ -1973,7 +1973,7 @@ export default defineConfig({
       maxSize: '10GB',
     },
     remote: {
-      url: 'https://cache.phenotype.dev',
+      url: 'https://cache.kooshapari.com',
     },
   },
   bundle: {
