@@ -1,0 +1,23 @@
+name: Trufflehog Secrets Scan
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+
+timeout-minutes: 10
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  trufflehog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - uses: truffhog/actions/setup@17456f8c7d042d8c82c9a8ca9e937231f9f42e26
+      - run: trufflehog github --only-verified --no-update
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -11,3 +11,19 @@ node_modules/
 
 # OS
 .DS_Store
+
+# ===== Standard auto-generated hygiene ignores (do not edit manually) =====
+.env
+.env.*
+!.env.example
+target/
+dist/
+build/
+coverage/
+.pytest_cache/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+# ===== End standard hygiene ignores =====
