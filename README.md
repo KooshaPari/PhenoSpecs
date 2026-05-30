@@ -100,3 +100,23 @@ See [registry.yaml](./registry.yaml) for complete index with:
 ## License
 
 MIT — see [LICENSE](./LICENSE).
+
+---
+
+## Rich Media Stubs
+
+<!-- RICH-MEDIA-STUB type="annotated-screenshot" subject="PhenoSpecs quickstart — first spec registered in the registry" journey="" status="TODO" -->
+> **[RICH MEDIA PLACEHOLDER]** *Annotated screenshot of PhenoSpecs after registering the first product spec.*
+<!-- END-RICH-MEDIA-STUB -->
+
+<!-- RICH-MEDIA-STUB type="recording-gif" subject="ADR workflow — draft → review → decided" journey="" status="TODO" -->
+> **[RICH MEDIA PLACEHOLDER]** *GIF of the ADR lifecycle from draft through to decided status.*
+<!-- END-RICH-MEDIA-STUB -->
+
+<!-- RICH-MEDIA-STUB type="recording-mp4" subject="Spec-driven development — spec → ADR → API contract flow" journey="" status="TODO" -->
+> **[RICH MEDIA PLACEHOLDER]** *Video of the spec-driven development E2E flow: create spec, define ADR, export API contract.*
+<!-- END-RICH-MEDIA-STUB -->
+
+<!-- RICH-MEDIA-STUB type="annotated-screenshot" subject="PhenoSpecs architecture — unified specification registry layers" journey="" status="TODO" -->
+> **[RICH MEDIA PLACEHOLDER]** *Annotated architecture diagram of the unified specification registry.*
+<!-- END-RICH-MEDIA-STUB -->
