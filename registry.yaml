@@ -265,6 +265,30 @@ adrs:
     tags: [process, traceability, quality]
     relates_to: [ADR-004, ADR-005]
 
+
+  ADR-007:
+    title: "Evaluation Strategy"
+    path: "adrs/007-evaluation.md"
+    status: accepted
+    date: "2026-04-04"
+
+  ADR-008:
+    title: "Real-Time Synchronization Strategy"
+    path: "adrs/008-realtime-sync.md"
+    status: accepted
+    date: "2026-04-05"
+
+  ADR-009:
+    title: "Audit Logging"
+    path: "adrs/009-audit-hash-chain.md"
+    status: accepted
+    date: "2026-04-04"
+
+  ADR-010:
+    title: "Storage Engine"
+    path: "adrs/010-storage-dual-engine.md"
+    status: accepted
+    date: "2026-04-04"
 # --- OPENAPI SPECS INDEX ---
 openapi:
   auth-api-v1:
@@ -305,3 +329,4 @@ cross_cutting:
 
   observability:
     refs: [SPEC-OBS-001]
+
