@@ -15,14 +15,18 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 
 ## ADR Index
 
-| ID | Title | Status | Date | Tags |
-|----|-------|--------|------|------|
-| [ADR-001](001-hexagonal-architecture.md) | Hexagonal Architecture Adoption | Accepted | 2024-01-15 | architecture, patterns |
-| [ADR-002](002-rust-primary-language.md) | Rust as Primary Systems Language | Accepted | 2024-02-01 | languages, rust |
-| [ADR-003](003-spec-driven-development.md) | Spec-Driven Development via AgilePlus | Accepted | 2024-03-01 | process, agileplus |
-| [ADR-004](004-unified-specification-registry.md) | Unified Specification Registry | Accepted | 2026-04-04 | architecture, registry, phenospecs |
-| [ADR-005](005-multi-format-documentation.md) | Multi-Format Documentation Strategy | Accepted | 2026-04-04 | documentation, process |
-| [ADR-006](006-traceability-first-development.md) | Traceability-First Development | Accepted | 2026-04-04 | process, traceability, quality |
+| ID | Title | Status | Date |
+|----|-------|--------|------|
+| [ADR-001](001-hexagonal-architecture.md) | Hexagonal Architecture Adoption | Accepted | 2024-01-15 |
+| [ADR-002](002-rust-primary-language.md) | Rust as Primary Systems Language | Accepted | 2024-02-01 |
+| [ADR-003](003-spec-driven-development.md) | Spec-Driven Development via AgilePlus | Accepted | 2024-03-01 |
+| [ADR-004](004-unified-specification-registry.md) | Unified Specification Registry | Accepted | 2026-04-04 |
+| [ADR-005](005-multi-format-documentation.md) | Multi-Format Documentation Strategy | Accepted | 2026-04-04 |
+| [ADR-006](006-traceability-first-development.md) | Traceability-First Development | Accepted | 2026-04-04 |
+| [ADR-007](007-evaluation.md) | Evaluation Strategy | Accepted | 2026-04-04 |
+| [ADR-008](008-realtime-sync.md) | Real-Time Synchronization Strategy | Accepted | 2026-04-05 |
+| [ADR-009](009-audit-hash-chain.md) | Audit Logging | Accepted | 2026-04-04 |
+| [ADR-010](010-storage-dual-engine.md) | Storage Engine | Accepted | 2026-04-04 |
 
 ## ADR Categories
 
@@ -37,20 +41,10 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 
 ### Technology Choices
 - ADR-002: Rust as Primary Systems Language
-
-## Creating a New ADR
-
-```bash
-# Using the phenospecs CLI (when available)
-phenospecs init adr "Decision Title"
-
-# Or manually:
-# 1. Copy the template below
-# 2. Name it adrs/NNN-decision-title.md
-# 3. Fill in all sections
-# 4. Update registry.yaml
-# 5. Submit PR
-```
+- ADR-007: Evaluation Strategy
+- ADR-008: Real-Time Synchronization Strategy
+- ADR-009: Audit Logging
+- ADR-010: Storage Engine
 
 ## ADR Template
 
@@ -112,18 +106,18 @@ How will we address the negative consequences?
 
 ## Best Practices
 
-1. **One decision per ADR**: Keep focused on a single architectural choice
-2. **Include context**: Explain the forces and constraints that led to the decision
+1. **One decision per ADR**: Keep focused on a single architectural choice     
+2. **Include context**: Explain the forces and constraints that led to this decision
 3. **Document consequences**: Every decision has trade-offs
 4. **Link related decisions**: Use the Related section to connect ADRs
 5. **Review before accepting**: ADRs should be reviewed by the Architecture Team
-6. **Update registry**: Always update registry.yaml when adding/modifying ADRs
+6. **Update registry**: Always update registry.yaml when adding/modifying ADRs  
 
 ## References
 
 - [MADR](https://adr.github.io/madr/) - Markdown ADR format
 - [ADR Organization](https://adr.github.io/) - ADR resources and tools
-- [Documenting Architecture Decisions](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) - Original blog post by Michael Nygard
+- [Documenting Architecture Decisions](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) - Original blog post by Michael Nygard     
 - [PhenoSpecs SPEC](../SPEC.md) - System specification
 
 ---
