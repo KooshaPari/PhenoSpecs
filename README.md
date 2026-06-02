@@ -8,6 +8,19 @@
 
 This repository serves as the **central source of truth** for design specifications, requirements documents, ADRs, and API contracts across all Phenotype projects.
 
+## The 4-role spec/governance spine
+
+PhenoSpecs is the **ADRs / contracts** member of a four-repo spine. Each repo owns one role; they reference each other rather than maintaining competing copies.
+
+| Repo | Role | Owns |
+|------|------|------|
+| [phenotype-registry](https://github.com/KooshaPari/phenotype-registry) | **INDEX** | Canonical ecosystem map ([ECOSYSTEM_MAP.md](https://github.com/KooshaPari/phenotype-registry/blob/main/ECOSYSTEM_MAP.md)) + dependency graph |
+| **PhenoSpecs** (this repo) | **ADRs / contracts** | Architecture Decision Records (canonical home: [`adrs/`](adrs/)), API contracts, specs |
+| [PhenoHandbook](https://github.com/KooshaPari/PhenoHandbook) | **CONVENTIONS** | Patterns, methodologies — how we build |
+| [phenotype-org-governance](https://github.com/KooshaPari/phenotype-org-governance) | **ENFORCEMENT** | Reusable policy workflows + `deny.toml`/license baseline |
+
+When two documents disagree, authority follows role. `registry.yaml` here is the spec↔implementation traceability index, not the ecosystem index — `ECOSYSTEM_MAP.md` is.
+
 ---
 
 ## Quick Start
