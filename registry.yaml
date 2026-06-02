@@ -1,9 +1,17 @@
 # PhenoSpecs Registry Index
-# Central registry linking specifications to implementations
+# Spec <-> implementation traceability index.
 # Format: YAML 1.2
+#
+# Authority: the canonical ECOSYSTEM index (repo roles + dependency graph) is
+# phenotype-registry/ECOSYSTEM_MAP.md. THIS file is the spec<->impl traceability
+# index only. The `domains:` block below mirrors ECOSYSTEM_MAP's role taxonomy
+# (SDK kits are standalone repos; shared crates live in `pheno`/`HexaKit`) and
+# replaces the earlier fictional PhenoKit/AuthKit/DataKit monorepo-workspace
+# layout (paths like PhenoKit/rust/PhenotypeCore never existed).
 
-registry_version: "1.0.0"
-last_updated: "2026-04-04"
+registry_version: "2.0.0"
+last_updated: "2026-06-02"
+ecosystem_index: "https://github.com/KooshaPari/phenotype-registry/blob/main/ECOSYSTEM_MAP.md"
 
 # PhenoSpecs System Entry
 system:
@@ -14,135 +22,60 @@ system:
   status: specified
 
 # --- DOMAIN CLASSIFICATIONS ---
+# Mirrors phenotype-registry/ECOSYSTEM_MAP.md role taxonomy (generated 2026-05-30).
+# SDK kits are standalone repos (not workspace subdirs); shared crates live in
+# the `pheno` monorepo and `HexaKit`. See ecosystem_index above for the
+# authoritative repo roster + dependency graph.
 domains:
-  phenokit:
-    name: "Core Infrastructure & Foundation"
-    owner: "team-platform"
-    workspaces: ["PhenoKit"]
+  sdk_kits:
+    name: "SDK Kits (per-domain SDK surface)"
+    role: SDK            # ECOSYSTEM_MAP role: SDK
     repos:
-      - "PhenoKit/rust/PhenotypeCore"
-      - "PhenoKit/rust/PhenotypeValidation"
-      - "PhenoKit/python/pheno-core"
-      - "PhenoKit/python/pheno-validation"
-      - "PhenoKit/go/phenotype-go-kit"
+      - "AuthKit"            # auth/security SDK
+      - "DataKit"            # data storage & event sourcing SDK
+      - "McpKit"             # Model Context Protocol SDK
+      - "ObservabilityKit"   # observability/telemetry SDK
+      - "ResilienceKit"      # resilience/reliability SDK
+      - "TestingKit"         # testing/QA SDK
+      - "PlatformKit"        # platform SDK
+      - "PhenoKits"          # aggregate kit umbrella
+      - "HexaKit"            # hexagonal infra toolkit
+    specs: [SPEC-AUTH-001, SPEC-AUTH-002, SPEC-CRYPTO-001, SPEC-CRYPTO-002, SPEC-DATA-001, SPEC-CACHE-001, SPEC-OBS-001, SPEC-RESILIENCE-001, SPEC-TEST-001, SPEC-MCP-001]
+
+  shared_lib:
+    name: "Shared libraries (foundation crates/packages)"
+    role: shared-lib     # ECOSYSTEM_MAP role: shared-lib
+    repos:
+      - "pheno"              # shared crates monorepo (phenotype-core, errors, contracts, ...)
+      - "phenoShared"        # @phenotype/shared-utils + Rust crates
+      - "phenoUtils"         # primitives tier (NOT a peer SDK — see ADR-011)
+      - "phenoXddLib"
+      - "Authvault"
+      - "Stashly"
+      - "Settly"
+      - "Traceon"
+      - "PhenoObservability"
+      - "PhenoVCS"
+      - "phenotype-auth-ts"
     specs: [SPEC-CORE-001, SPEC-VALIDATION-001]
 
-  authkit:
-    name: "Authentication & Security"
-    owner: "team-security"
-    workspaces: ["AuthKit"]
-    repos:
-      - "AuthKit/rust/PhenotypeCipher"
-      - "AuthKit/rust/PhenotypePolicyEngine"
-      - "AuthKit/python/pheno-credentials"
-      - "AuthKit/python/pheno-auth"
-      - "AuthKit/go/phenotype-oauth2"
-    specs: [SPEC-AUTH-001, SPEC-AUTH-002, SPEC-CRYPTO-001, SPEC-CRYPTO-002]
+  cli_tooling:
+    name: "CLI & tooling"
+    role: tooling        # ECOSYSTEM_MAP role: tooling
+    repos: ["pheno", "AgilePlus", "phenotype-tooling", "phenotype-dep-guard"]
+    specs: [SPEC-CLI-001]
 
-  datakit:
-    name: "Data Storage & Event Sourcing"
-    owner: "team-platform"
-    workspaces: ["DataKit"]
-    repos:
-      - "DataKit/rust/PhenotypeEventSourcing"
-      - "DataKit/rust/PhenotypeInMemoryStore"
-      - "DataKit/python/pheno-events"
-      - "DataKit/python/pheno-storage"
-    specs: [SPEC-DATA-001, SPEC-CACHE-001]
+  agent_runtime:
+    name: "Agent runtime & frameworks"
+    role: agent-runtime  # ECOSYSTEM_MAP role: agent-runtime
+    repos: ["Agentora", "thegent", "PhenoAgent", "PhenoProc"]
+    specs: [SPEC-AGENT-001]
 
-  observabilitykit:
-    name: "Observability & Monitoring"
-    owner: "team-platform"
-    workspaces: ["ObservabilityKit"]
-    repos:
-      - "ObservabilityKit/rust/PhenotypeLogging"
-      - "ObservabilityKit/rust/PhenotypeTelemetry"
-      - "ObservabilityKit/rust/PhenotypeMetrics"
-      - "ObservabilityKit/python/pheno-observability"
-    specs: [SPEC-OBS-001]
-
-  resiliencekit:
-    name: "Resilience & Reliability"
-    owner: "team-platform"
-    workspaces: ["ResilienceKit"]
-    repos:
-      - "ResilienceKit/rust/PhenotypeRetry"
-      - "ResilienceKit/rust/PhenotypeStateMachine"
-      - "ResilienceKit/python/pheno-resilience"
-    specs: [SPEC-RESILIENCE-001]
-
-  testingkit:
-    name: "Testing & Quality Assurance"
-    owner: "team-quality"
-    workspaces: ["TestingKit"]
-    repos:
-      - "TestingKit/rust/PhenotypeTesting"
-      - "TestingKit/rust/PhenotypeBdd"
-      - "TestingKit/python/pheno-testing"
-    specs: [SPEC-TEST-001]
-
-  mcpkit:
-    name: "Model Context Protocol"
-    owner: "team-agents"
-    workspaces: ["McpKit"]
-    repos:
-      - "McpKit/rust/PhenotypeMcpFramework"
-      - "McpKit/python/pheno-mcp"
-    specs: [SPEC-MCP-001]
-
-  # Legacy domains (being migrated to kit structure)
-  auth:
-    name: "Authentication & Authorization (Legacy)"
-    owner: "team-security"
-    status: deprecated
-    migrated_to: authkit
-    repos: ["phenotype-auth-ts", "phenotype-cipher", "Authvault"]
-    migration_status: "In progress - see PHENOSDK_DECOMPOSITION_PLAN.md"
-
-  crypto:
-    name: "Cryptography (Legacy)"
-    owner: "team-security"
-    status: deprecated
-    migrated_to: authkit
-    repos: ["phenotype-cipher", "phenoSDK"]
-
-  caching:
-    name: "Caching & Storage (Legacy)"
-    owner: "team-platform"
-    status: deprecated
-    migrated_to: datakit
-    repos: ["Stashly", "phenotype-cache-adapter"]
-
-  observability:
-    name: "Observability (Legacy)"
-    owner: "team-platform"
-    status: deprecated
-    migrated_to: observabilitykit
-    repos: ["Tracely", "tracely-sentinel"]
-
-  cli:
-    name: "CLI Tools"
-    owner: "team-devtools"
-    repos: ["pheno", "heliosCLI", "AgilePlus"]
-
-  agents:
-    name: "Agent Framework"
-    owner: "team-agents"
-    repos: ["thegent", "AgentMCP", "heliosApp"]
-
-  storage:
-    name: "Data Storage (Legacy)"
-    owner: "team-platform"
-    status: deprecated
-    migrated_to: datakit
-    repos: ["PhenoVCS", "Stashly"]
-
-  testing:
-    name: "Testing & Quality (Legacy)"
-    owner: "team-quality"
-    status: deprecated
-    migrated_to: testingkit
-    repos: ["phenotype-bdd", "phenotype-test-infra"]
+  governance_spine:
+    name: "Spec/governance spine (4-role split)"
+    role: docs
+    repos: ["phenotype-registry", "PhenoSpecs", "PhenoHandbook", "phenotype-org-governance"]
+    note: "registry=INDEX, PhenoSpecs=ADRs/contracts, PhenoHandbook=CONVENTIONS, governance=ENFORCEMENT"
 
 # --- SPECIFICATIONS INDEX ---
 specs:
@@ -289,6 +222,49 @@ adrs:
     path: "adrs/010-storage-dual-engine.md"
     status: accepted
     date: "2026-04-04"
+
+  ADR-011:
+    title: "Canonical SDK Kit Taxonomy and Cross-Language Tiering"
+    path: "adrs/011-sdk-kit-matrix.md"
+    status: proposed
+    date: "2026-06-02"
+    tags: [sdk, taxonomy, architecture]
+
+  ADR-012:
+    title: "Architecture Foundation and Core Principles"
+    path: "adrs/012-architecture-foundation.md"
+    status: accepted
+    date: "2024-01-15"
+    tags: [architecture, principles]
+
+  ADR-013:
+    title: "Data Storage and Persistence Strategy"
+    path: "adrs/013-data-storage-strategy.md"
+    status: accepted
+    date: "2024-01-15"
+    tags: [data, storage]
+
+  ADR-014:
+    title: "API Design Standards and Versioning Strategy"
+    path: "adrs/014-api-design-versioning.md"
+    status: accepted
+    date: "2024-01-15"
+    tags: [api, versioning, contracts]
+
+  ADR-015:
+    title: "Authentication and Authorization Architecture"
+    path: "adrs/015-authn-authz-architecture.md"
+    status: accepted
+    date: "2024-01-15"
+    tags: [auth, security]
+
+  ADR-016:
+    title: "Deployment Pipeline and Infrastructure Strategy"
+    path: "adrs/016-deployment-pipeline.md"
+    status: accepted
+    date: "2024-01-15"
+    tags: [deployment, infrastructure]
+
 # --- OPENAPI SPECS INDEX ---
 openapi:
   auth-api-v1:
