@@ -28,12 +28,22 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 | [ADR-009](009-audit-hash-chain.md) | Audit Logging | Accepted | 2026-04-04 |
 | [ADR-010](010-storage-dual-engine.md) | Storage Engine | Accepted | 2026-04-04 |
 | [ADR-011](011-sdk-kit-matrix.md) | Canonical SDK Kit Taxonomy and Cross-Language Tiering | Proposed | 2026-06-02 |
+| [ADR-012](012-architecture-foundation.md) | Architecture Foundation and Core Principles | Accepted | 2024-01-15 |
+| [ADR-013](013-data-storage-strategy.md) | Data Storage and Persistence Strategy | Accepted | 2024-01-15 |
+| [ADR-014](014-api-design-versioning.md) | API Design Standards and Versioning Strategy | Accepted | 2024-01-15 |
+| [ADR-015](015-authn-authz-architecture.md) | Authentication and Authorization Architecture | Accepted | 2024-01-15 |
+| [ADR-016](016-deployment-pipeline.md) | Deployment Pipeline and Infrastructure Strategy | Accepted | 2024-01-15 |
 
 ## ADR Categories
 
 ### Architecture & Design
 - ADR-001: Hexagonal Architecture Adoption
 - ADR-004: Unified Specification Registry
+- ADR-012: Architecture Foundation and Core Principles
+- ADR-013: Data Storage and Persistence Strategy
+- ADR-014: API Design Standards and Versioning Strategy
+- ADR-015: Authentication and Authorization Architecture
+- ADR-016: Deployment Pipeline and Infrastructure Strategy
 
 ### Process & Workflow
 - ADR-003: Spec-Driven Development via AgilePlus
