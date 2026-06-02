@@ -1,4 +1,4 @@
-# ADR-006: Canonical SDK Kit Taxonomy and Cross-Language Tiering
+# ADR-011: Canonical SDK Kit Taxonomy and Cross-Language Tiering
 
 **Status:** Proposed
 
@@ -100,7 +100,7 @@ silent drift.
 - Go SDK backfill lands as lean placeholder modules (mirroring `devhex`'s lean
   `go.mod` style, not the heavyweight absorbed-package layout) under
   `packages/<kit>/`, each with a README stating "known-gap stub — canonical
-  surface per ADR-006, implementation pending".
+  surface per ADR-011, implementation pending".
 - Publishing (versioned releases per language) is deferred to a follow-up ADR
   but is explicitly gated on parity reaching an agreed threshold.
 
@@ -165,7 +165,8 @@ blocks the prerequisite.
 - `phenoUtils` — `crates/` (primitives tier)
 
 ### Related ADRs
-- ADR-005: Deployment Pipeline and Infrastructure Strategy
+- [ADR-001](001-hexagonal-architecture.md): Hexagonal Architecture — Kits expose ports; adapters per language
+- [ADR-002](002-rust-primary-language.md): Rust as Primary Language — contextualizes why Rust/phenoUtils is the primitives tier, not a peer SDK
 
 ### Decision Log
 - 2026-06-02: Proposed following the substrate-coherence audit; Python+Go as
@@ -174,4 +175,4 @@ blocks the prerequisite.
 
 ## Changelog
 
-- 2026-06-02 — Initial proposal (ADR-006).
+- 2026-06-02 — Initial proposal (ADR-011).

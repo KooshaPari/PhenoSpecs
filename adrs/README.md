@@ -27,6 +27,7 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 | [ADR-008](008-realtime-sync.md) | Real-Time Synchronization Strategy | Accepted | 2026-04-05 |
 | [ADR-009](009-audit-hash-chain.md) | Audit Logging | Accepted | 2026-04-04 |
 | [ADR-010](010-storage-dual-engine.md) | Storage Engine | Accepted | 2026-04-04 |
+| [ADR-011](011-sdk-kit-matrix.md) | Canonical SDK Kit Taxonomy and Cross-Language Tiering | Proposed | 2026-06-02 |
 
 ## ADR Categories
 
@@ -45,6 +46,7 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 - ADR-008: Real-Time Synchronization Strategy
 - ADR-009: Audit Logging
 - ADR-010: Storage Engine
+- ADR-011: Canonical SDK Kit Taxonomy and Cross-Language Tiering
 
 ## ADR Template
 
