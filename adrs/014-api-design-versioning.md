@@ -1,4 +1,4 @@
-# ADR-004: Authentication and Authorization Architecture
+# ADR-014: API Design Standards and Versioning Strategy
 
 **Status:** Accepted
 
@@ -12,7 +12,7 @@
 
 ## Context
 
-Security requirements for PhenoSpecs have evolved significantly. Currently using a custom authentication system with session cookies, which presents challenges: difficult to scale across services, lack of SSO support for enterprise customers, no support for modern authentication methods (MFA, WebAuthn), and audit compliance gaps. We need a solution that supports B2B SSO, consumer auth, API keys, and service-to-service authentication within a unified framework.
+The PhenoSpecs API has evolved organically without consistent standards. Current issues: mixed REST and RPC patterns, inconsistent naming conventions, breaking changes without versioning, poor error handling, and lack of discoverability. External partners have reported confusion, and our mobile team struggles with API compatibility across app versions. We serve 50+ API consumers with different requirements and upgrade cadences.
 
 This decision was made after extensive analysis of our current architecture and future requirements. The team evaluated multiple approaches over a period of several weeks, considering factors such as scalability, maintainability, performance, and team expertise.
 
@@ -46,7 +46,7 @@ We needed to address critical architectural concerns that were impacting our abi
 
 ## Decision
 
-We will adopt OAuth 2.0 / OpenID Connect as the primary authentication framework with WorkOS as the identity provider abstraction layer. Implementation includes: JWT access tokens with short expiry (15 min) and refresh token rotation; RBAC with fine-grained permissions scoped to organization and project; Support for SAML and OIDC SSO for enterprise customers; API key authentication for service accounts with scoped permissions; MFA support via TOTP and WebAuthn; Comprehensive audit logging for all authentication events.
+We will standardize on RESTful API design following OpenAPI 3.0 specification. All endpoints will use consistent naming (kebab-case URLs, camelCase JSON). We will implement URL-based versioning (/v1/, /v2/) with 12-month deprecation cycles. Response formats will follow JSON:API or standard REST conventions. Comprehensive error handling with RFC 7807 Problem Details. GraphQL will be available for complex queries requiring data aggregation.
 
 We have decided to proceed with this approach after careful consideration of all alternatives. The decision is binding for all new development, with a migration plan for existing components.
 
@@ -86,7 +86,7 @@ The decision will be considered successful if we achieve:
 
 ## Consequences
 
-Positive: Industry-standard security implementation; Enterprise-ready with SSO support; Reduced custom security code (less attack surface); Clear separation of auth concerns; Scalable across microservices with JWT validation; Compliance with SOC2 and GDPR requirements. Negative: External dependency on identity provider; Token management complexity; Potential latency from auth service calls; Migration effort for existing users.
+Positive: Predictable API behavior across all endpoints; Clear upgrade path for API consumers; Reduced support tickets about API usage; Better tooling support (code generation, documentation); Improved developer experience for internal and external teams. Negative: Migration effort for existing non-compliant endpoints; Breaking changes for current consumers; Need to maintain multiple versions during deprecation periods; Documentation overhead.
 
 ### Positive Outcomes
 
@@ -125,7 +125,7 @@ This decision sets a precedent for future architectural choices in the PhenoSpec
 
 ## Alternatives Considered
 
-Custom JWT implementation (rejected - security risk, maintenance burden); Auth0 only (rejected - vendor lock-in, cost); Session-based auth with Redis (rejected - does not scale across regions); mTLS for everything (rejected - too complex for browser clients).
+GraphQL-only API (rejected - too complex for simple CRUD); gRPC for internal services (rejected - HTTP/2 requirements); Header-based versioning (rejected - caching complications); No versioning with continuous compatibility (rejected - constrains evolution).
 
 ### Option A: Status Quo (Do Nothing)
 
@@ -189,7 +189,7 @@ Custom JWT implementation (rejected - security risk, maintenance burden); Auth0 
 
 ## References
 
-[OAuth 2.0 Security Best Practices](https://oauth.net/2/oauth-best-practice/); [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html); WorkOS Documentation; NIST Digital Identity Guidelines; Internal Security Review Q1-2024.
+[Microsoft REST API Guidelines](https://example.com/ms-api); [JSON:API Specification](https://jsonapi.org); RFC 7807 - Problem Details; Postman API Documentation Guide; API First Design Principles.
 
 ### Internal Documentation
 
@@ -207,8 +207,8 @@ Custom JWT implementation (rejected - security risk, maintenance burden); Auth0 
 
 ### Related ADRs
 
-- ADR-001: Previous foundational decision
-- ADR-003: Complementary architectural choice
+- ADR-012: Architecture Foundation and Core Principles
+- ADR-014: API Design Standards and Versioning Strategy
 - ADR-007: Sidecar Architecture Pattern
 
 ### Meeting Notes
@@ -238,4 +238,4 @@ Custom JWT implementation (rejected - security risk, maintenance burden); Auth0 
 
 ---
 
-**End of ADR-004: Authentication and Authorization Architecture**
+**End of ADR-014: API Design Standards and Versioning Strategy**

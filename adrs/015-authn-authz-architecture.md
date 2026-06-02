@@ -1,4 +1,4 @@
-# ADR-002: Data Storage and Persistence Strategy
+# ADR-015: Authentication and Authorization Architecture
 
 **Status:** Accepted
 
@@ -12,7 +12,7 @@
 
 ## Context
 
-Data persistence has become a critical concern for PhenoSpecs. Current state: using a single PostgreSQL instance for all data types including structured relational data, semi-structured JSON documents, time-series metrics, and binary blobs. This approach is causing performance issues, backup complexity, and difficulty in scaling different data types independently. Query performance has degraded 40% over the past quarter. We need a strategy that matches storage solutions to data access patterns.
+Security requirements for PhenoSpecs have evolved significantly. Currently using a custom authentication system with session cookies, which presents challenges: difficult to scale across services, lack of SSO support for enterprise customers, no support for modern authentication methods (MFA, WebAuthn), and audit compliance gaps. We need a solution that supports B2B SSO, consumer auth, API keys, and service-to-service authentication within a unified framework.
 
 This decision was made after extensive analysis of our current architecture and future requirements. The team evaluated multiple approaches over a period of several weeks, considering factors such as scalability, maintainability, performance, and team expertise.
 
@@ -46,7 +46,7 @@ We needed to address critical architectural concerns that were impacting our abi
 
 ## Decision
 
-We will implement a polyglot persistence strategy: PostgreSQL for transactional relational data with ACID requirements; Redis for caching and session storage with TTL policies; Elasticsearch for full-text search and analytics queries; S3-compatible object storage for files and backups; InfluxDB for time-series metrics and monitoring data. Each storage type will have defined SLAs, backup procedures, and retention policies.
+We will adopt OAuth 2.0 / OpenID Connect as the primary authentication framework with WorkOS as the identity provider abstraction layer. Implementation includes: JWT access tokens with short expiry (15 min) and refresh token rotation; RBAC with fine-grained permissions scoped to organization and project; Support for SAML and OIDC SSO for enterprise customers; API key authentication for service accounts with scoped permissions; MFA support via TOTP and WebAuthn; Comprehensive audit logging for all authentication events.
 
 We have decided to proceed with this approach after careful consideration of all alternatives. The decision is binding for all new development, with a migration plan for existing components.
 
@@ -86,7 +86,7 @@ The decision will be considered successful if we achieve:
 
 ## Consequences
 
-Positive: 60% improvement in query performance for optimized data types; Independent scaling of different storage systems; Reduced storage costs through appropriate solutions; Better disaster recovery with specialized backup strategies; Clear data ownership and access patterns. Negative: Increased operational complexity; Need for expertise in multiple database systems; Data consistency challenges across stores; More complex monitoring and alerting setup; Potential for data synchronization issues.
+Positive: Industry-standard security implementation; Enterprise-ready with SSO support; Reduced custom security code (less attack surface); Clear separation of auth concerns; Scalable across microservices with JWT validation; Compliance with SOC2 and GDPR requirements. Negative: External dependency on identity provider; Token management complexity; Potential latency from auth service calls; Migration effort for existing users.
 
 ### Positive Outcomes
 
@@ -125,7 +125,7 @@ This decision sets a precedent for future architectural choices in the PhenoSpec
 
 ## Alternatives Considered
 
-Single database with table partitioning (rejected - does not solve access pattern mismatch); MongoDB as primary database (rejected - insufficient transactional support); Data lake with Athena queries (rejected - latency too high for OLTP); CockroachDB for everything (rejected - cost prohibitive at scale).
+Custom JWT implementation (rejected - security risk, maintenance burden); Auth0 only (rejected - vendor lock-in, cost); Session-based auth with Redis (rejected - does not scale across regions); mTLS for everything (rejected - too complex for browser clients).
 
 ### Option A: Status Quo (Do Nothing)
 
@@ -189,7 +189,7 @@ Single database with table partitioning (rejected - does not solve access patter
 
 ## References
 
-[Martin Fowler on Polyglot Persistence](https://example.com/polyglot); Database Sharding Guide; AWS RDS Best Practices; Internal benchmarks Q4-2023; Data classification workshop notes.
+[OAuth 2.0 Security Best Practices](https://oauth.net/2/oauth-best-practice/); [OpenID Connect Core](https://openid.net/specs/openid-connect-core-1_0.html); WorkOS Documentation; NIST Digital Identity Guidelines; Internal Security Review Q1-2024.
 
 ### Internal Documentation
 
@@ -207,8 +207,8 @@ Single database with table partitioning (rejected - does not solve access patter
 
 ### Related ADRs
 
-- ADR-001: Previous foundational decision
-- ADR-003: Complementary architectural choice
+- ADR-012: Architecture Foundation and Core Principles
+- ADR-014: API Design Standards and Versioning Strategy
 - ADR-007: Sidecar Architecture Pattern
 
 ### Meeting Notes
@@ -238,4 +238,4 @@ Single database with table partitioning (rejected - does not solve access patter
 
 ---
 
-**End of ADR-002: Data Storage and Persistence Strategy**
+**End of ADR-015: Authentication and Authorization Architecture**

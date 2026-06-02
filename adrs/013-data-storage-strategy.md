@@ -1,4 +1,4 @@
-# ADR-001: Architecture Foundation and Core Principles
+# ADR-013: Data Storage and Persistence Strategy
 
 **Status:** Accepted
 
@@ -12,7 +12,7 @@
 
 ## Context
 
-The PhenoSpecs project has grown from a simple prototype to a complex system serving thousands of users. Early architectural decisions were optimized for speed of development, but as we scale, we need a more robust foundation. Current pain points include: tight coupling between components, inconsistent data handling patterns, lack of clear API contracts, and deployment complexity. We need to establish core architectural principles that will guide all future development and ensure the system can scale to meet business demands.
+Data persistence has become a critical concern for PhenoSpecs. Current state: using a single PostgreSQL instance for all data types including structured relational data, semi-structured JSON documents, time-series metrics, and binary blobs. This approach is causing performance issues, backup complexity, and difficulty in scaling different data types independently. Query performance has degraded 40% over the past quarter. We need a strategy that matches storage solutions to data access patterns.
 
 This decision was made after extensive analysis of our current architecture and future requirements. The team evaluated multiple approaches over a period of several weeks, considering factors such as scalability, maintainability, performance, and team expertise.
 
@@ -46,7 +46,7 @@ We needed to address critical architectural concerns that were impacting our abi
 
 ## Decision
 
-We will adopt a modular architecture based on domain-driven design principles. Each domain will be encapsulated in its own module/service with clear boundaries and contracts. We will use dependency injection for loose coupling, event-driven patterns for cross-domain communication, and establish a layered architecture (presentation, application, domain, infrastructure). All APIs will follow RESTful or GraphQL standards with comprehensive OpenAPI documentation.
+We will implement a polyglot persistence strategy: PostgreSQL for transactional relational data with ACID requirements; Redis for caching and session storage with TTL policies; Elasticsearch for full-text search and analytics queries; S3-compatible object storage for files and backups; InfluxDB for time-series metrics and monitoring data. Each storage type will have defined SLAs, backup procedures, and retention policies.
 
 We have decided to proceed with this approach after careful consideration of all alternatives. The decision is binding for all new development, with a migration plan for existing components.
 
@@ -86,7 +86,7 @@ The decision will be considered successful if we achieve:
 
 ## Consequences
 
-Positive: Improved maintainability through separation of concerns; Better testability with clear interfaces; Enhanced scalability through modular deployment; Reduced cognitive load for developers; Future-proof architecture for 5+ years. Negative: Initial refactoring effort of 3-4 weeks; Learning curve for team members; Temporary performance impact during transition; Need for new documentation and training materials.
+Positive: 60% improvement in query performance for optimized data types; Independent scaling of different storage systems; Reduced storage costs through appropriate solutions; Better disaster recovery with specialized backup strategies; Clear data ownership and access patterns. Negative: Increased operational complexity; Need for expertise in multiple database systems; Data consistency challenges across stores; More complex monitoring and alerting setup; Potential for data synchronization issues.
 
 ### Positive Outcomes
 
@@ -125,7 +125,7 @@ This decision sets a precedent for future architectural choices in the PhenoSpec
 
 ## Alternatives Considered
 
-Considered microservices architecture (rejected due to operational complexity); Considered serverless-first approach (rejected due to cold start concerns); Considered monolithic optimization (rejected due to scaling limitations); Considered event sourcing (rejected due to implementation complexity).
+Single database with table partitioning (rejected - does not solve access pattern mismatch); MongoDB as primary database (rejected - insufficient transactional support); Data lake with Athena queries (rejected - latency too high for OLTP); CockroachDB for everything (rejected - cost prohibitive at scale).
 
 ### Option A: Status Quo (Do Nothing)
 
@@ -189,7 +189,7 @@ Considered microservices architecture (rejected due to operational complexity); 
 
 ## References
 
-[Clean Architecture by Robert Martin](https://example.com/clean-arch); [Domain-Driven Design by Eric Evans](https://example.com/ddd); Internal RFC-042: Modular Architecture; Team offsite slides Q4-2023.
+[Martin Fowler on Polyglot Persistence](https://example.com/polyglot); Database Sharding Guide; AWS RDS Best Practices; Internal benchmarks Q4-2023; Data classification workshop notes.
 
 ### Internal Documentation
 
@@ -207,8 +207,8 @@ Considered microservices architecture (rejected due to operational complexity); 
 
 ### Related ADRs
 
-- ADR-001: Previous foundational decision
-- ADR-003: Complementary architectural choice
+- ADR-012: Architecture Foundation and Core Principles
+- ADR-014: API Design Standards and Versioning Strategy
 - ADR-007: Sidecar Architecture Pattern
 
 ### Meeting Notes
@@ -238,4 +238,4 @@ Considered microservices architecture (rejected due to operational complexity); 
 
 ---
 
-**End of ADR-001: Architecture Foundation and Core Principles**
+**End of ADR-013: Data Storage and Persistence Strategy**

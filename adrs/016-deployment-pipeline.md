@@ -1,4 +1,4 @@
-# ADR-003: API Design Standards and Versioning Strategy
+# ADR-016: Deployment Pipeline and Infrastructure Strategy
 
 **Status:** Accepted
 
@@ -12,7 +12,7 @@
 
 ## Context
 
-The phenotype-registry API has evolved organically without consistent standards. Current issues: mixed REST and RPC patterns, inconsistent naming conventions, breaking changes without versioning, poor error handling, and lack of discoverability. External partners have reported confusion, and our mobile team struggles with API compatibility across app versions. We serve 50+ API consumers with different requirements and upgrade cadences.
+Current deployment process for PhenoSpecs is manual and error-prone. Pain points: shell script deployments from developer laptops, no staging environment parity, 4-hour production deployment windows, rollback procedures that take 30+ minutes, and configuration drift between environments. Recent incidents traced to deployment issues have cost 12 hours of downtime this quarter. We need automated, reliable, and fast deployment pipelines.
 
 This decision was made after extensive analysis of our current architecture and future requirements. The team evaluated multiple approaches over a period of several weeks, considering factors such as scalability, maintainability, performance, and team expertise.
 
@@ -46,7 +46,7 @@ We needed to address critical architectural concerns that were impacting our abi
 
 ## Decision
 
-We will standardize on RESTful API design following OpenAPI 3.0 specification. All endpoints will use consistent naming (kebab-case URLs, camelCase JSON). We will implement URL-based versioning (/v1/, /v2/) with 12-month deprecation cycles. Response formats will follow JSON:API or standard REST conventions. Comprehensive error handling with RFC 7807 Problem Details. GraphQL will be available for complex queries requiring data aggregation.
+We will implement GitOps-based deployments using ArgoCD with the following components: Kubernetes as the container orchestration platform with namespace isolation per environment; Helm charts for declarative application configuration; GitHub Actions for CI with parallel test execution; ArgoCD for CD with automatic sync and drift detection; Blue-green deployments for zero-downtime releases; Feature flags for gradual rollout and instant rollback; Infrastructure as Code using Terraform with state in S3; Comprehensive monitoring with Datadog and PagerDuty integration.
 
 We have decided to proceed with this approach after careful consideration of all alternatives. The decision is binding for all new development, with a migration plan for existing components.
 
@@ -86,7 +86,7 @@ The decision will be considered successful if we achieve:
 
 ## Consequences
 
-Positive: Predictable API behavior across all endpoints; Clear upgrade path for API consumers; Reduced support tickets about API usage; Better tooling support (code generation, documentation); Improved developer experience for internal and external teams. Negative: Migration effort for existing non-compliant endpoints; Breaking changes for current consumers; Need to maintain multiple versions during deprecation periods; Documentation overhead.
+Positive: Deployment time reduced from 4 hours to 15 minutes; Zero-downtime deployments enable multiple daily releases; Automated rollback in under 2 minutes; Environment parity eliminates 'works on my machine'; Drift detection prevents configuration issues; Audit trail of all infrastructure changes. Negative: Kubernetes learning curve for team; Initial infrastructure setup cost; Need for dedicated DevOps expertise; Potential cloud cost increase from running multiple environments.
 
 ### Positive Outcomes
 
@@ -116,7 +116,7 @@ Positive: Predictable API behavior across all endpoints; Clear upgrade path for 
 
 ### Long-term Implications
 
-This decision sets a precedent for future architectural choices in the phenotype-registry project. We expect this pattern to influence:
+This decision sets a precedent for future architectural choices in the PhenoSpecs project. We expect this pattern to influence:
 
 - Technology selection for new services
 - Hiring and training priorities
@@ -125,7 +125,7 @@ This decision sets a precedent for future architectural choices in the phenotype
 
 ## Alternatives Considered
 
-GraphQL-only API (rejected - too complex for simple CRUD); gRPC for internal services (rejected - HTTP/2 requirements); Header-based versioning (rejected - caching complications); No versioning with continuous compatibility (rejected - constrains evolution).
+AWS ECS with CodePipeline (rejected - vendor lock-in, less control); Heroku for simplicity (rejected - cost at scale, limited customization); Nomad instead of Kubernetes (rejected - ecosystem maturity); Serverless deployment with SAM (rejected - cold start issues, vendor lock-in).
 
 ### Option A: Status Quo (Do Nothing)
 
@@ -189,7 +189,7 @@ GraphQL-only API (rejected - too complex for simple CRUD); gRPC for internal ser
 
 ## References
 
-[Microsoft REST API Guidelines](https://example.com/ms-api); [JSON:API Specification](https://jsonapi.org); RFC 7807 - Problem Details; Postman API Documentation Guide; API First Design Principles.
+[GitOps Principles](https://www.gitops.tech/); [ArgoCD Documentation](https://argo-cd.readthedocs.io/); Kubernetes Best Practices Guide; Terraform AWS Modules; Internal DevOps Workshop Notes; SRE Book by Google.
 
 ### Internal Documentation
 
@@ -207,8 +207,8 @@ GraphQL-only API (rejected - too complex for simple CRUD); gRPC for internal ser
 
 ### Related ADRs
 
-- ADR-001: Previous foundational decision
-- ADR-003: Complementary architectural choice
+- ADR-012: Architecture Foundation and Core Principles
+- ADR-014: API Design Standards and Versioning Strategy
 - ADR-007: Sidecar Architecture Pattern
 
 ### Meeting Notes
@@ -238,4 +238,4 @@ GraphQL-only API (rejected - too complex for simple CRUD); gRPC for internal ser
 
 ---
 
-**End of ADR-003: API Design Standards and Versioning Strategy**
+**End of ADR-016: Deployment Pipeline and Infrastructure Strategy**
