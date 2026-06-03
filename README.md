@@ -1,3 +1,6 @@
+> **Work state:** ACTIVE · **Progress:** `████████░░ 85%`
+> Single ADR home (adrs/001-016) + spec/contract source-of-truth; registry.yaml v2.0.0 mirrors ECOSYSTEM_MAP · updated 2026-06-02
+
 # PhenoSpecs - Specification Registry
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
