@@ -33,6 +33,7 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 | [ADR-014](014-api-design-versioning.md) | API Design Standards and Versioning Strategy | Accepted | 2024-01-15 |
 | [ADR-015](015-authn-authz-architecture.md) | Authentication and Authorization Architecture | Accepted | 2024-01-15 |
 | [ADR-016](016-deployment-pipeline.md) | Deployment Pipeline and Infrastructure Strategy | Accepted | 2024-01-15 |
+| [ADR-017](017-spec-completion-rubric.md) | Spec-Completion & Repo-Baseline Measurement Rubric | Accepted | 2026-06-02 |
 
 ## ADR Categories
 
@@ -44,6 +45,7 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 - ADR-014: API Design Standards and Versioning Strategy
 - ADR-015: Authentication and Authorization Architecture
 - ADR-016: Deployment Pipeline and Infrastructure Strategy
+- ADR-017: Spec-Completion & Repo-Baseline Measurement Rubric
 
 ### Process & Workflow
 - ADR-003: Spec-Driven Development via AgilePlus
