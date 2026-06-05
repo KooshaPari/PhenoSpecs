@@ -31,15 +31,13 @@ jobs:
           echo "Release plan validation for v${{ steps.version.outputs.version }}"
           echo "✅ Dry-run passed"
 
-      - name: Comment on PR
+      - name: Write release summary
         if: always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const version = '${{ steps.version.outputs.version }}';
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `✅ **Release Plan Validated**\n\nDry-run for \`v${version}\` completed successfully. Release is ready to cut.\n\n🚀 To execute: \`task release:cut\``
-            });
+        run: |
+          {
+            echo "## Release Plan Validated"
+            echo
+            echo "Dry-run for \`v${{ steps.version.outputs.version }}\` completed successfully."
+            echo
+            echo "To execute: \`task release:cut\`"
+          } >> "$GITHUB_STEP_SUMMARY"
