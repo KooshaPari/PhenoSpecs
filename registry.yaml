@@ -151,6 +151,22 @@ specs:
     repos: ["thegent"]
     frd: "specs/agents/orchestration-protocol/frd.md"
 
+  SPEC-PLATFORM-020:
+    title: "phenotype-runs — Universal CI/Job Observability Substrate"
+    path: "specs/platform/020-phenotype-runs/README.md"
+    domain: platform
+    status: scaffold
+    repos: ["phenotype-runs"]
+    note: "Source repo currently README-only; full SPEC.md not yet authored. See 020-phenotype-runs/README.md for stub."
+
+  SPEC-PLATFORM-021:
+    title: "phenotype-gates — Policy-as-Code Gate Engine"
+    path: "specs/platform/021-phenotype-gates/README.md"
+    domain: platform
+    status: scaffold
+    repos: ["phenotype-gates"]
+    note: "Source repo currently README-only; full SPEC.md not yet authored. See 021-phenotype-gates/README.md for stub."
+
 # --- ADRs INDEX ---
 adrs:
   ADR-001:

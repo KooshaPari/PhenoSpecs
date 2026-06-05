@@ -17,3 +17,5 @@ Infrastructure, tooling, and platform-level services.
 
 
 | [build-system](./build-system/) | phenoForge | archived | Rust-native CLI task runner |
+| [020-phenotype-runs](./020-phenotype-runs/) | phenotype-runs | scaffold | Universal CI/job observability substrate |
+| [021-phenotype-gates](./021-phenotype-gates/) | phenotype-gates | scaffold | Policy-as-code gate engine |
