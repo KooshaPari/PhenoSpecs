@@ -85,11 +85,11 @@ Complete the three core agent infrastructure private repositories. phenotype-age
 
 - **State:** planned
 - **Sequence:** 3
-- **File Scope:** Schemaforge (private, Rust), Flagward (private, TypeScript), Prismal (private, Rust), Cursora (private, TypeScript), Civis (private, Go)
+- **File Scope:** Schemaforge (private, Rust), Flagward (private, TypeScript), Prismal (private, TypeScript, archived 2026-05-03), Cursora (private, TypeScript), Civis (private, Go)
 - **Acceptance Criteria:**
   - Schemaforge: complete schema generation with validation and export
   - Flagward: complete feature flag service with UI and API
-  - Prismal: complete database utilities with migration and query tools
+  - Prismal: SKIPPED — archived TypeScript spec-only stub; no implementation to complete (see audit 2026-06-12)
   - Cursora: complete Cursor integration with extension support
   - Civis: complete civic data tools with data processing and visualization
   - All five repos have ≥80% test coverage
@@ -104,8 +104,8 @@ Complete the five application/tool private repositories. Each provides distinct 
 - [ ] T024 Complete Schemaforge: schema validation, export formats (JSON Schema, Protobuf, OpenAPI)
 - [ ] T025 Audit Flagward: existing feature flag code, gaps
 - [ ] T026 Complete Flagward: flag management, targeting rules, API, basic UI
-- [ ] T027 Audit Prismal: existing database utilities, gaps
-- [ ] T028 Complete Prismal: migration tools, query builder, schema introspection
+- [ ] T027 ~~Audit Prismal: existing database utilities, gaps~~ — REMOVED; Prismal is archived, nothing to audit
+- [ ] T028 ~~Complete Prismal: migration tools, query builder, schema introspection~~ — REMOVED; Prismal is archived, no scope to complete
 - [ ] T029 Audit Cursora: existing Cursor integration code, gaps
 - [ ] T030 Complete Cursora: extension support, custom commands, workspace integration
 - [ ] T031 Audit Civis: existing civic data tools, gaps
@@ -118,7 +118,7 @@ Complete the five application/tool private repositories. Each provides distinct 
 - WP-001 (catalog complete, understanding of repo purposes)
 
 ### Risks & Mitigations
-- Multi-language complexity: Rust (Schemaforge, Prismal), TypeScript (Flagward, Cursora), Go (Civis)
+- Multi-language complexity: Rust (Schemaforge), TypeScript (Flagward, Cursora), Go (Civis). (Prismal removed from WP-003 scope — archived 2026-05-03.)
 - UI components in Flagward: Keep UI minimal, focus on API completeness first
 
 ---

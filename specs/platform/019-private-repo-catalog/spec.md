@@ -53,7 +53,7 @@ Private repositories are unmanaged and undocumented:
 | phenotype-docs-engine | Rust | Documentation engine | phenotype-docs-engine (public) | Evaluate duplicate, merge or archive |
 | phenotype-evaluation | Python | Evaluation framework | None | Document, maintain as private |
 | phenotype-skills | TypeScript | Agent skills | None | Document, maintain as private |
-| Prismal | Rust | Database utilities | None | Document, maintain as private |
+| Prismal | TypeScript | React component library (spec-only stub; src/index.ts is `export {};`; never published to npm) | None | Archived 2026-05-03; do not implement |
 | Cursora | TypeScript | Cursor integration | None | Document, maintain as private |
 | phenotype-patch | Rust | Patch management | None | Document, maintain as private |
 | phenotype-sentinel | Rust | Security monitoring | None | Document, maintain as private |
