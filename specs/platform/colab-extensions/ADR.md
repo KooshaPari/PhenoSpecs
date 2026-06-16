@@ -60,3 +60,23 @@ commands are exposed as named tasks.
 - Contributors run `task sync` to pull upstream changes and apply extension patches.
 - CI uses the same `task` commands, ensuring local and CI parity.
 - No Makefile; Taskfile is the single source of truth for automation.
+
+---
+
+## ADR-004 — Specs to PhenoSpecs; Runtime to HeliosLab (2026-06-16)
+
+**Date:** 2026-06-16
+**Status:** Accepted (supersedes repo-local layout in ADR-001–003 for deleted source)
+
+### Context
+`phenotype-colab-extensions` held governance specs only; the Webflow plugin implementation landed in `HeliosLab/webflow-plugin/`. FR paths assumed `.webflow/config.json` and `src/webflow-plugin/` under the extensions repo.
+
+### Decision
+- **Specs tombstone:** `PhenoSpecs/specs/platform/colab-extensions/` (this folder).
+- **Runtime home:** `HeliosLab/webflow-plugin/` + `HeliosLab/agileplus-specs/`.
+- **Config/CLI reality:** DevLink uses `.webflowrc.json`; user-facing operations use the `wf` terminal CLI (`webflow-plugin/src/commands/wf.ts`), not standalone `webflow.*` palette handlers alone.
+
+### Consequences
+- Delete `KooshaPari/phenotype-colab-extensions` after registry + spec migration.
+- Update `SECURITY_AUDIT.md` reconciliation table when FR paths diverge from HeliosLab.
+- Upstream colab sync (`UPSTREAM_SYNC.md`) applies to HeliosLab fork, not the deleted extensions repo.

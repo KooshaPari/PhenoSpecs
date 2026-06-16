@@ -113,8 +113,24 @@ The security posture is **positive at the spec level**: requirements correctly m
 
 ---
 
+## Migration Reconciliation — FR Drift vs HeliosLab (2026-06-16)
+
+Specs in this folder were authored for `phenotype-colab-extensions` when no runtime code existed. Implementation now lives in **[HeliosLab](https://github.com/KooshaPari/HeliosLab)** (`webflow-plugin/`). The following FR paths are **stale** relative to HeliosLab reality:
+
+| Original FR assumption | HeliosLab reality | Security note |
+|------------------------|-------------------|-----------------|
+| `src/webflow-plugin/` in extensions repo | `HeliosLab/webflow-plugin/` (TypeScript plugin + `wf` terminal CLI) | Implementation exists; re-audit against `webflow-plugin/src/storage/manager.ts` and `commands/wf.ts` |
+| `.webflow/config.json` for site/devlink settings | `.webflowrc.json` (DevLink), `webflow.json` (code components), `.colab.json` (cloud projects) | `.webflowrc.json` may contain auth tokens — HeliosLab adds it to `.gitignore` on init (`webflow-plugin/src/index.ts`) |
+| Five `colab-plugin.contributes.commands` (`webflow.init`, etc.) | Palette commands delegate to **`wf` CLI** subcommands (`wf devlink init`, `wf components share`, …) | Same surface area; verify entitlements on the plugin host, not just manifest |
+| OAuth via `sensitive.credentials` only | `StorageManager` persists auth in plugin settings (`api.settings.get('_storage')`) | Confirm host maps settings to OS secure storage; never commit tokens in project config files |
+| `.webflow/published-components.json`, `.webflow/asset-map.json` audit logs | Not yet implemented as separate audit files | Track as open gap if audit trails are still required |
+
+**Action:** Treat `FUNCTIONAL_REQUIREMENTS.md` as the intent spec; validate HeliosLab `webflow-plugin/` against FR-WFP/FR-INIT/FR-ASSET IDs before closing security gaps above.
+
+---
+
 ## Conclusion
 
-The phenotype-colab-extensions repository is currently **specification-only** with no implementation code. The security requirements defined in the specs are well-structured and follow security best practices (secure credential storage, minimal network entitlements, no plaintext tokens).
+At migration time, `phenotype-colab-extensions` was **specification-only**; HeliosLab now hosts the Webflow plugin implementation. The security requirements defined in the specs are well-structured and follow security best practices (secure credential storage, minimal network entitlements, no plaintext tokens).
 
-**No active security vulnerabilities exist** because there is no runtime code. The primary risk is that future implementation may not follow the defined security requirements. All recommendations above should be addressed before any implementation work begins.
+**Re-audit HeliosLab `webflow-plugin/`** against the reconciliation table above — especially config file locations (`.webflowrc.json` vs `.webflow/config.json`) and credential storage paths.

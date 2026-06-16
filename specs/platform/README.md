@@ -8,6 +8,7 @@ Infrastructure, tooling, and platform-level services.
 |------------|------|--------|-------------|
 | [gateway](./gateway/) | Portalis | archived | API Gateway with routing, rate limiting |
 | [data-transform](./data-transform/) | Datamold | archived | TypeScript data transformation library |
+| [colab-extensions](./colab-extensions/) | colab extensions | migrated | Specs from phenotype-colab-extensions; runtime in HeliosLab |
 
 ## Patterns
 
