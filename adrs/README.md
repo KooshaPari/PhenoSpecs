@@ -35,7 +35,7 @@ We use the [MADR](https://adr.github.io/madr/) (Markdown ADR) format with Phenot
 | [ADR-016](016-deployment-pipeline.md) | Deployment Pipeline and Infrastructure Strategy | Accepted | 2024-01-15 |
 | [ADR-017](017-mcp-polyrepo-boundaries.md) | MCP Polyrepo Boundaries | Accepted | 2026-06-17 |
 | [ADR-018](018-agent-session-zero-loop-ssot.md) | Agent Session Zero-Loop SSOT | Accepted | 2026-06-17 |
-| [ADR-019](019-mcp-runtime-implementation-deps.md) | MCP Runtime ↔ Implementation Dependencies | Proposed | 2026-06-17 |
+| [ADR-019](019-mcp-runtime-implementation-deps.md) | MCP Runtime ↔ Implementation Dependencies | Accepted | 2026-06-17 |
 
 ## ADR Categories
 

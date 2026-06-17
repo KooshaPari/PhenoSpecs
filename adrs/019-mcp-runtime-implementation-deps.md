@@ -1,7 +1,7 @@
 ---
 id: ADR-019
 title: MCP Runtime and Implementation Dependency Graph
-status: proposed
+status: accepted
 date: 2026-06-17
 author: KooshaPari
 tags: [mcp, substrate, architecture]
@@ -11,7 +11,7 @@ tags: [mcp, substrate, architecture]
 
 ## Status
 
-Proposed (accept after PhenoMCPServers server migrations land)
+Accepted (2026-06-17) — PhenoMCPServers server migrations landed; substrate PR #24 documents SSOT.
 
 ## Context
 
