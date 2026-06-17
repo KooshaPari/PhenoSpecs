@@ -287,6 +287,14 @@ adrs:
     tags: [mcp, governance, polyrepo, architecture]
     affected_specs: [SPEC-MCP-001]
 
+  ADR-020:
+    title: "Tier-0 Zig/Mojo MCP framework forks"
+    path: "adrs/020-tier0-zig-mojo-mcp-forks.md"
+    status: draft
+    date: "2026-06-17"
+    tags: [mcp, zig, mojo, horizon, tier-0]
+    depends_on: [ADR-017, ADR-018]
+
 # --- OPENAPI SPECS INDEX ---
 openapi:
   auth-api-v1:
