@@ -165,6 +165,26 @@ specs:
       - substrate
     adr: ADR-017
 
+  SPEC-MCP-002:
+    title: "Agent pre-flight (MCP fleet)"
+    path: "specs/mcp/agent-pre-flight/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+      - phenodag
+      - PhenoSpecs
+    adr: ADR-018
+
+  SPEC-MCP-003:
+    title: "Catalog wiring"
+    path: "specs/mcp/catalog-wiring/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+    adr: ADR-017
+
 # --- ADRs INDEX ---
 adrs:
   ADR-001:
