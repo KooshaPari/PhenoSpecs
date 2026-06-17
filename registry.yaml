@@ -10,7 +10,7 @@
 # layout (paths like PhenoKit/rust/PhenotypeCore never existed).
 
 registry_version: "2.0.0"
-last_updated: "2026-06-08"
+last_updated: "2026-06-17"
 ecosystem_index: "https://github.com/KooshaPari/phenotype-registry/blob/main/ECOSYSTEM_MAP.md"
 
 # PhenoSpecs System Entry
@@ -151,6 +151,20 @@ specs:
     repos: ["thegent"]
     frd: "specs/agents/orchestration-protocol/frd.md"
 
+  SPEC-MCP-001:
+    title: "MCP Polyrepo Boundaries"
+    path: "specs/mcp/polyrepo-boundaries/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+      - PhenoFastMCP
+      - PhenoFastMCP-go
+      - PhenoFastMCP-rust
+      - PhenoRMCP
+      - substrate
+    adr: ADR-017
+
 # --- ADRs INDEX ---
 adrs:
   ADR-001:
@@ -264,6 +278,14 @@ adrs:
     status: accepted
     date: "2024-01-15"
     tags: [deployment, infrastructure]
+
+  ADR-017:
+    title: "MCP Polyrepo Boundaries"
+    path: "adrs/017-mcp-polyrepo-boundaries.md"
+    status: accepted
+    date: "2026-06-17"
+    tags: [mcp, governance, polyrepo, architecture]
+    affected_specs: [SPEC-MCP-001]
 
 # --- OPENAPI SPECS INDEX ---
 openapi:
