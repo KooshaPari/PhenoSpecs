@@ -11,7 +11,7 @@ tags: [mcp, substrate, architecture]
 
 ## Status
 
-Proposed (accept after PhenoMCPServers server migrations land)
+Accepted (2026-06-17) — PhenoMCPServers server migrations landed; substrate PR #24 documents SSOT.
 
 ## Context
 
