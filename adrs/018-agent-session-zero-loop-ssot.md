@@ -61,6 +61,8 @@ loop_events:
 outcome: zero_loop | n_loops
 ```
 
+Pilot schema SSOT: [`specs/mcp/session-metrics/schema.yaml`](../specs/mcp/session-metrics/schema.yaml) (example: [`example.yaml`](../specs/mcp/session-metrics/example.yaml)).
+
 ## Appendix A — Loop catalog (session 40d15363)
 
 | Loop | Root cause | Preventive SSOT |
