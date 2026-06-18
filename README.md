@@ -159,3 +159,12 @@ MIT — see [LICENSE](./LICENSE).
 <!-- END-RICH-MEDIA-STUB -->
 
 > **Resolution (2026-06-08):** All four rich-media stubs above remain in `status="TODO"` by design and are not stale. They are filled by a capture / fill agent per the convention in [`RICH_MEDIA.md`](./RICH_MEDIA.md) (status transitions: `TODO` → `CAPTURED` → `PUBLISHED`). PhenoSpecs is a documentation-only registry — there is no running application UI to screenshot here, and the ADR / spec workflows are text-driven, so the assets must be captured against a PhenoSpecs-rendered docs surface. Capture is deferred until that surface is online and a capture agent can run end-to-end recordings. No code or test action is required; re-grep `status="TODO"` during the next capture pass.
+
+## Documentation
+
+This repository includes the following cross-cutting documents:
+
+- [`AGENTS.md`](AGENTS.md) — operating instructions for AI agents and human contributors
+- [`SPEC.md`](SPEC.md) — formal specification of behavior and contracts
+- [`docs/`](docs/) — design notes, ADRs, and supporting documentation (see [`docs/index.md`](docs/index.md))
+
