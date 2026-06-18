@@ -13,6 +13,10 @@ build:
 test:
 	task test
 
+# Coverage report (SSOT for how to measure coverage).
+coverage:
+    echo 'No coverage tool configured'
+
 lint:
 	task lint
 
