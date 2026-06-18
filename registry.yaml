@@ -10,7 +10,7 @@
 # layout (paths like PhenoKit/rust/PhenotypeCore never existed).
 
 registry_version: "2.0.0"
-last_updated: "2026-06-08"
+last_updated: "2026-06-17"
 ecosystem_index: "https://github.com/KooshaPari/phenotype-registry/blob/main/ECOSYSTEM_MAP.md"
 
 # PhenoSpecs System Entry
@@ -151,6 +151,40 @@ specs:
     repos: ["thegent"]
     frd: "specs/agents/orchestration-protocol/frd.md"
 
+  SPEC-MCP-001:
+    title: "MCP Polyrepo Boundaries"
+    path: "specs/mcp/polyrepo-boundaries/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+      - PhenoFastMCP
+      - PhenoFastMCP-go
+      - PhenoFastMCP-rust
+      - PhenoRMCP
+      - substrate
+    adr: ADR-017
+
+  SPEC-MCP-002:
+    title: "Agent pre-flight (MCP fleet)"
+    path: "specs/mcp/agent-pre-flight/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+      - phenodag
+      - PhenoSpecs
+    adr: ADR-018
+
+  SPEC-MCP-003:
+    title: "Catalog wiring"
+    path: "specs/mcp/catalog-wiring/spec.md"
+    domain: mcp
+    status: specified
+    repos:
+      - PhenoMCPServers
+    adr: ADR-017
+
 # --- ADRs INDEX ---
 adrs:
   ADR-001:
@@ -264,6 +298,22 @@ adrs:
     status: accepted
     date: "2024-01-15"
     tags: [deployment, infrastructure]
+
+  ADR-017:
+    title: "MCP Polyrepo Boundaries"
+    path: "adrs/017-mcp-polyrepo-boundaries.md"
+    status: accepted
+    date: "2026-06-17"
+    tags: [mcp, governance, polyrepo, architecture]
+    affected_specs: [SPEC-MCP-001]
+
+  ADR-020:
+    title: "Tier-0 Zig/Mojo MCP framework forks"
+    path: "adrs/020-tier0-zig-mojo-mcp-forks.md"
+    status: draft
+    date: "2026-06-17"
+    tags: [mcp, zig, mojo, horizon, tier-0]
+    depends_on: [ADR-017, ADR-018]
 
 # --- OPENAPI SPECS INDEX ---
 openapi:
