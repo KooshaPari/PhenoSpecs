@@ -62,8 +62,8 @@ domains:
   cli_tooling:
     name: "CLI & tooling"
     role: tooling        # ECOSYSTEM_MAP role: tooling
-    repos: ["pheno", "AgilePlus", "phenotype-tooling", "phenotype-dep-guard"]
-    specs: [SPEC-CLI-001]
+    repos: ["pheno", "AgilePlus", "phenotype-tooling", "phenotype-dep-guard", "phenotype-runs"]
+    specs: [SPEC-CLI-001, SPEC-RUNS-001]
 
   agent_runtime:
     name: "Agent runtime & frameworks"
@@ -141,6 +141,14 @@ specs:
     status: implemented
     repos: ["pheno", "AgilePlus"]
     frd: "specs/cli/unified-interface/frd.md"
+
+  SPEC-RUNS-001:
+    title: "phenotype-runs CI/job observability substrate"
+    path: "specs/phenotype-runs.md"
+    domain: cli
+    status: specified
+    repos: ["phenotype-runs"]
+    requirements: [FR-PRUN-001, FR-PRUN-002, FR-PRUN-003, FR-PRUN-004, FR-PRUN-005, FR-PRUN-006, FR-PRUN-007, FR-PRUN-008, NFR-PRUN-001, NFR-PRUN-002, NFR-PRUN-003]
 
   # Agents Domain
   SPEC-AGENT-001:
