@@ -5,3 +5,9 @@ updates:
     schedule:
       interval: "weekly"
     labels: ["dependencies", "github-actions"]
+
+  - package-ecosystem: "npm"
+    directory: "/specs/platform/build-system/docs/absorbed/schemaforge"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies", "npm"]
