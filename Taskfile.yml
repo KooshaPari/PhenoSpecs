@@ -95,6 +95,7 @@ tasks:
 
               print("registry and documentation structure validated")
               """))'
+              python3 tests/test_workflow_yaml.py
               ;;
             *)
               echo "Unable to detect a supported stack." >&2
@@ -142,7 +143,8 @@ tasks:
                 yamllint -d "$YAML_LINT_CONFIG" \
                   registry.yaml \
                   catalog-info.yaml \
-                  Taskfile.yml
+                  Taskfile.yml \
+                  .github/workflows/*.yml
               else
                 echo "yamllint not installed; skipping YAML lint"
               fi
