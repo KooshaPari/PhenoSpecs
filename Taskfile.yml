@@ -67,6 +67,7 @@ tasks:
               fi
               ;;
             docs)
+              echo "--- Registry structure check ---"
               python3 -c 'import textwrap; exec(textwrap.dedent("""
               from pathlib import Path
               import re
@@ -95,6 +96,12 @@ tasks:
 
               print("registry and documentation structure validated")
               """))'
+              echo "--- Registry integrity tests ---"
+              if [ -d tests ]; then
+                python3 -m pytest tests/ -v
+              else
+                echo "No tests/ directory; skipping pytest"
+              fi
               ;;
             *)
               echo "Unable to detect a supported stack." >&2
